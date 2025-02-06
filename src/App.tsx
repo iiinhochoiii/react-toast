@@ -7,6 +7,7 @@ function App() {
         onClick={() =>
           toaster({
             message: "toast!",
+            variants: "outlined",
           })
         }
       >

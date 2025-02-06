@@ -1,19 +1,69 @@
-import React, { useRef } from "react";
-
+import React from "react";
 import ReactDOM from "react-dom";
+import { Position, ToastType } from "@/types/toast";
+import useStore from "@/hooks/use-store";
 
-interface PortalProps {
-  createElement: React.ReactNode;
-}
+import { Wrapper } from "./toast.styles";
 
-const Container = ({ createElement }: PortalProps) => {
-  const elementRef = useRef(document.body);
+import Toast from "./Toast";
 
-  if (typeof document === "undefined") {
-    return null;
-  }
+const ToastContainer = () => {
+  const { toasts } = useStore();
 
-  return ReactDOM.createPortal(createElement, elementRef.current);
+  const groupByToast = toasts.reduce(
+    (acc, toast) => {
+      if (!toast.position) {
+        toast.position = "bottom";
+      }
+
+      if (!acc[toast.position]) {
+        acc[toast.position] = [];
+      }
+
+      acc[toast.position].push(toast);
+
+      return acc;
+    },
+    {} as Record<Position, ToastType[]>,
+  );
+
+  const createToastElement = (children: React.ReactNode) => {
+    return (
+      <>
+        {(Object.keys(groupByToast) as Array<keyof typeof groupByToast>).map(
+          (key) => (
+            <Wrapper key={key} position={key}>
+              {groupByToast[key].map(
+                ({
+                  id,
+                  message = "",
+                  type = "default",
+                  isClosable = true,
+                  duration = 3000,
+                  variants = "filled",
+                  position = "bottom",
+                  ...rest
+                }: ToastType) =>
+                  React.cloneElement(children as React.ReactElement, {
+                    id,
+                    message,
+                    type,
+                    isClosable,
+                    duration,
+                    variants,
+                    position,
+                    key: id,
+                    ...rest,
+                  }),
+              )}
+            </Wrapper>
+          ),
+        )}
+      </>
+    );
+  };
+
+  return ReactDOM.createPortal(createToastElement(<Toast />), document.body);
 };
 
-export default Container;
+export default ToastContainer;

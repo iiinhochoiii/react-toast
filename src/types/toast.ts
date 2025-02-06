@@ -13,5 +13,12 @@ export interface ToastType {
     | "bottom"
     | "bottom-right"
     | "bottom-left";
-  transition?: "bounce" | "slide" | "fade";
 }
+
+export type Position =
+  | "top"
+  | "top-left"
+  | "top-right"
+  | "bottom"
+  | "bottom-left"
+  | "bottom-right";
