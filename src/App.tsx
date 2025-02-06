@@ -1,11 +1,11 @@
-import toaster from "./utils/toast";
+import onToast from "@/core/handler";
 
 function App() {
   return (
     <div>
       <button
         onClick={() =>
-          toaster({
+          onToast({
             message: "toast!",
             variants: "outlined",
           })

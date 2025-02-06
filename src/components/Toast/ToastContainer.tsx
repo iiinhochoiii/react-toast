@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Position, ToastType } from "@/types/toast";
-import useStore from "@/hooks/use-store";
+import useStore from "@/core/store";
 
 import { Wrapper } from "./toast.styles";
 

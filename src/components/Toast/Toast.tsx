@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { ToastType } from "@/types/toast";
 
-import { dispatch } from "@/hooks/use-store";
+import { dispatch } from "@/core/store";
 import { StyledToastItem, StyledModalCloseIcon } from "./toast.styles";
 
 const Toast = ({
