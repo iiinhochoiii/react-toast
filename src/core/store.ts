@@ -1,46 +1,53 @@
 import { useState, useEffect } from "react";
 import { ToastType } from "@/types/toast";
+import { v4 as uuid } from "uuid";
 
-type Action =
+type ActionType =
   | { type: "ADD_TOAST"; payload: ToastType }
   | { type: "REMOVE_TOAST"; payload: string };
 
-const listeners: Array<(state: ToastType[]) => void> = [];
+let globalToasts: ToastType[] = [];
+let setGlobalToasts: (toasts: ToastType[]) => void = () => {};
 
-let memoryToast = [] as ToastType[];
-
-const reducer = (toasts: ToastType[], action: Action) => {
+const reducer = (state: ToastType[], action: ActionType): ToastType[] => {
   switch (action.type) {
     case "ADD_TOAST":
-      return [...toasts, { ...action.payload }];
+      return [...state, { ...action.payload }];
     case "REMOVE_TOAST":
-      return toasts.filter((toast) => toast.id !== action.payload);
+      return state.filter((toast) => toast.id !== action.payload);
+    default:
+      return state;
   }
 };
 
-export const dispatch = (action: Action) => {
-  memoryToast = reducer(memoryToast, action);
-  listeners.forEach((listener) => {
-    listener(memoryToast);
+const dispatch = (action: ActionType) => {
+  globalToasts = reducer(globalToasts, action);
+  setGlobalToasts(globalToasts);
+};
+
+export const useToastState = () => {
+  const [toasts, setToasts] = useState<ToastType[]>(globalToasts);
+
+  useEffect(() => {
+    setGlobalToasts = setToasts;
+
+    return () => {
+      setGlobalToasts = () => {};
+    };
+  }, []);
+
+  return toasts;
+};
+
+export const addToast = (toast: ToastType) => {
+  const id = uuid();
+  dispatch({
+    type: "ADD_TOAST",
+    payload: { ...toast, id },
   });
 };
 
-const useStore = () => {
-  const [toasts, setToasts] = useState<ToastType[]>(memoryToast);
-
-  useEffect(() => {
-    listeners.push(setToasts);
-    return () => {
-      const index = listeners.indexOf(setToasts);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
-    };
-  }, [toasts]);
-
-  return {
-    toasts,
-  };
+// 토스트 제거하는 함수
+export const removeToast = (id: string) => {
+  dispatch({ type: "REMOVE_TOAST", payload: id });
 };
-
-export default useStore;

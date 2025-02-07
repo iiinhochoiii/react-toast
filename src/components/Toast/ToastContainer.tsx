@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Position, ToastType } from "@/types/toast";
-import useStore from "@/core/store";
+import { useToastState } from "@/core/store";
 
 import { Wrapper } from "./toast.styles";
 
 import Toast from "./Toast";
 
 const ToastContainer = () => {
-  const { toasts } = useStore();
+  const toasts = useToastState();
 
   const groupByToast = toasts.reduce(
     (acc, toast) => {

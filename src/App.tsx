@@ -1,4 +1,4 @@
-import onToast from "@/core/handler";
+import { addToast as onToast } from "@/core/store";
 
 function App() {
   const handle = () => {

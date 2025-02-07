@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { ToastType } from "@/types/toast";
 
-import { dispatch } from "@/core/store";
+import { removeToast } from "@/core/store";
 import { StyledToastItem, StyledModalCloseIcon } from "./toast.styles";
 
 const Toast = ({
@@ -19,10 +19,7 @@ const Toast = ({
 }: ToastType) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch({
-        type: "REMOVE_TOAST",
-        payload: String(id),
-      });
+      removeToast(String(id));
     }, duration);
 
     return () => clearTimeout(timer);
@@ -49,12 +46,7 @@ const Toast = ({
             background: none;
             border: none;
           `}
-          onClick={() =>
-            dispatch({
-              type: "REMOVE_TOAST",
-              payload: String(id),
-            })
-          }
+          onClick={() => removeToast(String(id))}
         >
           <StyledModalCloseIcon variant={variants} />
         </button>
