@@ -1,18 +1,16 @@
 import onToast from "@/core/handler";
 
 function App() {
+  const handle = () => {
+    onToast({
+      type: "success",
+      variants: "outlined",
+      message: "hello",
+    });
+  };
   return (
     <div>
-      <button
-        onClick={() =>
-          onToast({
-            message: "toast!",
-            variants: "outlined",
-          })
-        }
-      >
-        toast
-      </button>
+      <button onClick={handle}>toast</button>
     </div>
   );
 }

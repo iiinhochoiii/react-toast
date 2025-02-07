@@ -5,7 +5,7 @@ export interface ToastType {
   duration?: number;
   isClosable?: boolean;
   variants?: "filled" | "outlined";
-  render?: (props: Omit<ToastType, "render">) => React.ReactNode;
+  custom?: () => React.ReactNode;
   position?:
     | "top"
     | "top-right"

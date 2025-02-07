@@ -13,28 +13,10 @@ const Toast = ({
   duration,
   isClosable,
   type,
-  render,
+  custom,
   variants,
   position,
-  ...rest
 }: ToastType) => {
-  const renderToast = () => {
-    if (render) {
-      return render({ message, id, ...rest });
-    }
-
-    return (
-      <span>
-        {message?.split("\n").map((line, index) => (
-          <React.Fragment key={index}>
-            {line}
-            <br />
-          </React.Fragment>
-        ))}
-      </span>
-    );
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch({
@@ -48,12 +30,19 @@ const Toast = ({
 
   return (
     <StyledToastItem type={type} variants={variants} position={position}>
-      {renderToast()}
+      {custom?.() ?? (
+        <span>
+          {message?.split("\n").map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
+        </span>
+      )}
       {isClosable && (
         <button
           css={css`
-            cursor: pointer;
-
             height: 24px;
             padding: 0;
 
