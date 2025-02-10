@@ -1,6 +1,18 @@
 {
   "name": "@iiinhochoiii/toast",
   "version": "0.1.2",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "toast",
+    "toast-message",
+    "notification"
+  ],
+  "author": "iiinhochoiii",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iiinhochoiii/toast-message.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
