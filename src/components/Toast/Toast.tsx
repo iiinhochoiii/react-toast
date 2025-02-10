@@ -1,22 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Position, ToastType } from "@/types/toast";
-import { useToastState } from "@/core/store";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Position, ToastType } from '@/types/toast';
+import { useToastState } from '@/core/store';
 
-import { Wrapper } from "./toast.styles";
+import { Wrapper } from './toast.styles';
 
-import ToastContent from "./ToastContent";
+import ToastContent from './ToastContent';
 
 const Toast = () => {
   const toasts = useToastState();
 
   const groupByToast = toasts.reduce(
     (acc, toast) => {
-      const position = toast.position ?? "bottom";
+      const position = toast.position ?? 'bottom';
       (acc[position] ??= []).push(toast);
       return acc;
     },
-    {} as Record<Position, ToastType[]>,
+    {} as Record<Position, ToastType[]>
   );
 
   return ReactDOM.createPortal(
@@ -27,12 +27,12 @@ const Toast = () => {
             {groupByToast[key].map(
               ({
                 id,
-                message = "",
-                type = "default",
+                message = '',
+                type = 'default',
                 isClosable = true,
                 duration = 3000,
-                variants = "filled",
-                position = "bottom",
+                variants = 'filled',
+                position = 'bottom',
                 ...rest
               }: ToastType) =>
                 React.cloneElement((<ToastContent />) as React.ReactElement, {
@@ -45,13 +45,13 @@ const Toast = () => {
                   position,
                   key: id,
                   ...rest,
-                }),
+                })
             )}
           </Wrapper>
-        ),
+        )
       )}
     </>,
-    document.body,
+    document.body
   );
 };
 

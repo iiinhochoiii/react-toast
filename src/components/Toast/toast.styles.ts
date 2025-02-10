@@ -1,51 +1,51 @@
-import { ToastType, Position } from "@/types/toast";
-import { css, keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
-import ToastCloseIcon from "./Icon/Close";
+import { ToastType, Position } from '@/types/toast';
+import { css, keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import ToastCloseIcon from './Icon/Close';
 
 const topAnimation = keyframes({
-  "0%": {
-    transform: "translateY(-120%)",
+  '0%': {
+    transform: 'translateY(-120%)',
   },
-  "100%": {
-    transform: "translateY(0)",
+  '100%': {
+    transform: 'translateY(0)',
   },
 });
 
 const LeftAnimation = keyframes({
-  "0%": {
-    transform: "translateX(-120%)",
+  '0%': {
+    transform: 'translateX(-120%)',
   },
-  "100%": {
-    transform: "translateX(0)",
+  '100%': {
+    transform: 'translateX(0)',
   },
 });
 
 const RightAnimation = keyframes({
-  "0%": {
-    transform: "translateX(120%)",
+  '0%': {
+    transform: 'translateX(120%)',
   },
-  "100%": {
-    transform: "translateX(0)",
+  '100%': {
+    transform: 'translateX(0)',
   },
 });
 
 const bottomAnimation = keyframes({
-  "0%": {
-    transform: "translateY(120%)",
+  '0%': {
+    transform: 'translateY(120%)',
   },
-  "100%": {
-    transform: "translateY(0)",
+  '100%': {
+    transform: 'translateY(0)',
   },
 });
 
 const positionAnimation = {
   top: topAnimation,
-  "top-left": LeftAnimation,
-  "top-right": RightAnimation,
+  'top-left': LeftAnimation,
+  'top-right': RightAnimation,
   bottom: bottomAnimation,
-  "bottom-left": LeftAnimation,
-  "bottom-right": RightAnimation,
+  'bottom-left': LeftAnimation,
+  'bottom-right': RightAnimation,
 };
 
 const toastStyle = {
@@ -77,7 +77,7 @@ const toastStyle = {
 };
 
 export const StyledToastItem = styled.div<
-  Pick<ToastType, "type" | "variants" | "position">
+  Pick<ToastType, 'type' | 'variants' | 'position'>
 >`
   display: flex;
   gap: 16px;
@@ -113,7 +113,7 @@ export const StyledModalCloseIcon = styled(ToastCloseIcon)<{
   variant?: string;
 }>`
   ${({ variant }) =>
-    variant === "outlined"
+    variant === 'outlined'
       ? css`
           > path {
             fill: var(--main-background);
@@ -132,11 +132,11 @@ const positionStyle = {
     left: 50%;
     transform: translateX(-50%);
   `,
-  "top-left": css`
+  'top-left': css`
     top: 20px;
     left: 20px;
   `,
-  "top-right": css`
+  'top-right': css`
     top: 20px;
     right: 20px;
   `,
@@ -145,11 +145,11 @@ const positionStyle = {
     left: 50%;
     transform: translateX(-50%);
   `,
-  "bottom-left": css`
+  'bottom-left': css`
     bottom: 20px;
     left: 20px;
   `,
-  "bottom-right": css`
+  'bottom-right': css`
     right: 20px;
     bottom: 20px;
   `,

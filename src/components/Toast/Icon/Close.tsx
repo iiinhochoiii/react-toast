@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 type ToastCloseIconProps = SVGProps<SVGSVGElement>;
 
