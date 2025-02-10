@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { ToastType } from "@/types/toast";
+import { ToastType } from '@/types/toast';
 
-import { removeToast } from "@/core/store";
-import { StyledToastItem, StyledModalCloseIcon, StyledCloseButton } from "./toast.styles";
+import { removeToast } from '@/core/store';
+import {
+  StyledToastItem,
+  StyledModalCloseIcon,
+  StyledCloseButton,
+} from './toast.styles';
 
 const ToastContent = ({
   id,
@@ -27,7 +31,7 @@ const ToastContent = ({
     <StyledToastItem type={type} variants={variants} position={position}>
       {custom?.() ?? (
         <span>
-          {message?.split("\n").map((line, index) => (
+          {message?.split('\n').map((line, index) => (
             <React.Fragment key={index}>
               {line}
               <br />
@@ -36,9 +40,7 @@ const ToastContent = ({
         </span>
       )}
       {isClosable && (
-        <StyledCloseButton
-          onClick={() => removeToast(String(id))}
-        >
+        <StyledCloseButton onClick={() => removeToast(String(id))}>
           <StyledModalCloseIcon variant={variants} />
         </StyledCloseButton>
       )}
