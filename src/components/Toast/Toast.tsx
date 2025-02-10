@@ -1,48 +1,57 @@
-import React, { useEffect } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Position, ToastType } from "@/types/toast";
+import { useToastState } from "@/core/store";
 
-import { ToastType } from "@/types/toast";
+import { Wrapper } from "./toast.styles";
 
-import { removeToast } from "@/core/store";
-import { StyledToastItem, StyledModalCloseIcon, StyledCloseButton } from "./toast.styles";
+import ToastContent from "./ToastContent";
 
-const Toast = ({
-  id,
-  message,
-  duration,
-  isClosable,
-  type,
-  custom,
-  variants,
-  position,
-}: ToastType) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      removeToast(String(id));
-    }, duration);
+const Toast = () => {
+  const toasts = useToastState();
 
-    return () => clearTimeout(timer);
-  }, [id, duration]);
+  const groupByToast = toasts.reduce(
+    (acc, toast) => {
+      const position = toast.position ?? "bottom";
+      (acc[position] ??= []).push(toast);
+      return acc;
+    },
+    {} as Record<Position, ToastType[]>,
+  );
 
-  return (
-    <StyledToastItem type={type} variants={variants} position={position}>
-      {custom?.() ?? (
-        <span>
-          {message?.split("\n").map((line, index) => (
-            <React.Fragment key={index}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))}
-        </span>
+  return ReactDOM.createPortal(
+    <>
+      {(Object.keys(groupByToast) as Array<keyof typeof groupByToast>).map(
+        (key) => (
+          <Wrapper key={key} position={key}>
+            {groupByToast[key].map(
+              ({
+                id,
+                message = "",
+                type = "default",
+                isClosable = true,
+                duration = 3000,
+                variants = "filled",
+                position = "bottom",
+                ...rest
+              }: ToastType) =>
+                React.cloneElement((<ToastContent />) as React.ReactElement, {
+                  id,
+                  message,
+                  type,
+                  isClosable,
+                  duration,
+                  variants,
+                  position,
+                  key: id,
+                  ...rest,
+                }),
+            )}
+          </Wrapper>
+        ),
       )}
-      {isClosable && (
-        <StyledCloseButton
-          onClick={() => removeToast(String(id))}
-        >
-          <StyledModalCloseIcon variant={variants} />
-        </StyledCloseButton>
-      )}
-    </StyledToastItem>
+    </>,
+    document.body,
   );
 };
 
