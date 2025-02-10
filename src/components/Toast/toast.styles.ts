@@ -102,6 +102,13 @@ export const StyledToastItem = styled.div<
     `}
 `;
 
+export const StyledCloseButton = styled.button`
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+`;
+
 export const StyledModalCloseIcon = styled(ToastCloseIcon)<{
   variant?: string;
 }>`
