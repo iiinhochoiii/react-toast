@@ -1,50 +1,95 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# @choi-ui/react-toast
 
-Currently, two official plugins are available:
+This package provides easy access to toast messages in React applications.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<br />
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+```
+// npm
+$ npm insatll @choi-ui/react-toast
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+// pnpm
+$ pnpm add @choi-ui/react-toast
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Usage
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```jsx
+import Toast, { onToast } from '@choi-ui/react-toast';
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+cosnt App = () => {
+  const handleClick = () => {
+    onToast({
+      message: 'hello toast!',
+    });
+  };
+
+  return (
+    <div>
+        <button onClick={onToast}>toast</button>
+        <Toast />
+    </div>
+  );
+}
 ```
+
+## Storybook Documentation
+It will be helpful to refer to the [storybook](http://react-toast-storybook.vercel.app/) when using it.
+
+<br />
+
+## Description
+
+It is recommended to declare the `<Toast />` component in the top-level component.
+ex. *App.tsx*
+
+> If you declare it in the top-level component, you don't need to add it to each component where toast is used.
+
+### Props
+
+The props of the `onToast` function, which is the event used when generating a toast, are as follows.
+
+| props       | type                                                                                          | default       | description
+|-------------|-----------------------------------------------------------------------------------------------|---------------|-----------------------------------------------------------|
+| message     | string                                                                                        |               | displayed message                                         |
+| type        | `success` \| `error` \| `default`                                                             | `default`     | Colors by toast type                                      |
+| duration    | number                                                                                        | 3000          | Toast Duration (ms)                                       |
+| position    | `top` \| `top-right` \| `top-left` \| `bottom` \| `bottom-right` \| `bottom-left` | `bottom`  | `bottom`      | Toast display position                                    |
+| isClosable  | boolean                                                                                       | `true`        | Whether to display the close button                       |
+| variants    | `filled` \| `outlined`                                                                        | `filled`      | `filled` has a solid background, `outlined` has a border  |
+| custom      | `React.ReactNode`                                                                             |               | Customize toast content                                   |
+
+## Note
+
+In onToast's props, `custom` values ​​are designed to have priority over `message` values.
+
+<br />
+For example, if message and custom are configured together in props, custom will have priority and message will be skipped.
+
+```jsx
+import Toast, { onToast } from '@choi-ui/react-toast';
+
+cosnt App = () => {
+  const handleClick = () => {
+    onToast({
+      message: 'simple message', // Skip
+      custom: () => <div>
+        <h1>Hello</h1>
+        <p>this is custom toast message</p>
+      </div>
+    });
+  };
+
+  return (
+    <div>
+        <button onClick={onToast}>toast</button>
+        <Toast />
+    </div>
+  );
+}
+```
+
+It is effective for displaying a toast in the form of a component rather than a simple text message.

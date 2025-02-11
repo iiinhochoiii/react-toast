@@ -194,3 +194,34 @@ export const Positions: StoryFn<ToastType> = () => {
     </div>
   );
 };
+
+export const Custom: StoryObj<ToastType> = {
+  render: (props) => {
+    const handleClick = () => {
+      onToast({
+        ...props,
+      });
+    };
+
+    return (
+      <div css={wrapperStyles}>
+        <button css={buttonStyles} onClick={handleClick}>
+          Custom Toast
+        </button>
+        <Toast />
+      </div>
+    );
+  },
+  args: {
+    type: 'default',
+    duration: 3000,
+    isClosable: true,
+    variants: 'filled',
+    custom: () => (
+      <div>
+        <h1>hello</h1>
+        <p>this is custom toast message</p>
+      </div>
+    ),
+  },
+};
