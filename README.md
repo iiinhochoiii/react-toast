@@ -8,10 +8,10 @@ This package provides easy access to toast messages in React applications.
 ## Installation
 
 ```
-- npm
+// npm
 $ npm insatll @choi-ui/react-toast
 
-- pnpm
+// pnpm
 $ pnpm add @choi-ui/react-toast
 ```
 
