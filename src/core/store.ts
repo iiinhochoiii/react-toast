@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ToastType } from '@/types/toast';
+import { ToastType } from '../types/toast';
 import { v4 as uuid } from 'uuid';
 
 type ActionType =

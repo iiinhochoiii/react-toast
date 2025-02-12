@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { ToastType } from '@/types/toast';
-import { removeToast } from '@/core/store';
+import { ToastType } from '../../types/toast';
+import { removeToast } from '../../core/store';
 import ToastCloseIcon from './Icon/Close';
 import './toast.css';
 

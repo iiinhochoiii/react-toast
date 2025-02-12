@@ -1,8 +1,8 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 
-import Toast from '@/components/Toast/Toast';
-import { Position, ToastType } from '@/types/toast';
-import { addToast as onToast } from '@/core/store';
+import Toast from '../components/Toast/Toast';
+import { Position, ToastType } from '../types/toast';
+import { addToast as onToast } from '../core/store';
 import './toast.css';
 
 const meta = {

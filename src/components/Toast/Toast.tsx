@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
-import { Position, ToastType } from '@/types/toast';
-import { useToastState } from '@/core/store';
+import { Position, ToastType } from '../../types/toast';
+import { useToastState } from '../../core/store';
 import ToastContent from './ToastContent';
 import './toast.css';
 
