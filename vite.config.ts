@@ -4,11 +4,7 @@ import * as path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      jsxImportSource: '@emotion/react',
-    }),
-  ],
+  plugins: [react()],
   server: {
     port: 4000,
   },
