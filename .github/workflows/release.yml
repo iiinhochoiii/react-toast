@@ -1,0 +1,63 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish:
+    name: Publish Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build package
+        run: npm run build
+
+      - name: Determine version bump
+        id: version_bump
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "Last commit message: $COMMIT_MSG"
+
+          if [[ "$COMMIT_MSG" == *"#major"* ]]; then
+            VERSION_TYPE="major"
+          elif [[ "$COMMIT_MSG" == *"#minor"* ]]; then
+            VERSION_TYPE="minor"
+          elif [[ "$COMMIT_MSG" == *"#patch"* ]]; then
+            VERSION_TYPE="patch"
+          else
+            VERSION_TYPE="patch"
+          fi
+
+          echo "VERSION_TYPE=$VERSION_TYPE" >> $GITHUB_ENV
+
+      - name: Bump version and push tag
+        run: |
+          npm version $VERSION_TYPE -m "Bump version to %s [skip ci]"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git push --follow-tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
