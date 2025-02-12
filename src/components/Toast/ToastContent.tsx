@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
-
 import { ToastType } from '@/types/toast';
-
 import { removeToast } from '@/core/store';
-import {
-  StyledToastItem,
-  StyledModalCloseIcon,
-  StyledCloseButton,
-} from './toast.styles';
+import ToastCloseIcon from './Icon/Close';
+import './toast.css';
 
 const ToastContent = ({
   id,
@@ -28,7 +23,7 @@ const ToastContent = ({
   }, [id, duration]);
 
   return (
-    <StyledToastItem type={type} variants={variants} position={position}>
+    <div className={`toast-item toast-${type} toast-${variants} ${position}`}>
       {custom?.() ?? (
         <span>
           {message?.split('\n').map((line, index) => (
@@ -40,11 +35,14 @@ const ToastContent = ({
         </span>
       )}
       {isClosable && (
-        <StyledCloseButton onClick={() => removeToast(String(id))}>
-          <StyledModalCloseIcon variant={variants} />
-        </StyledCloseButton>
+        <button
+          className="toast-close-button"
+          onClick={() => removeToast(String(id))}
+        >
+          <ToastCloseIcon className="toast-close-icon" />
+        </button>
       )}
-    </StyledToastItem>
+    </div>
   );
 };
 

@@ -1,0 +1,142 @@
+/* ===== 애니메이션 정의 ===== */
+@keyframes topAnimation {
+  0% {
+    transform: translateY(-120%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes leftAnimation {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rightAnimation {
+  0% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes bottomAnimation {
+  0% {
+    transform: translateY(120%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ===== 기본 스타일 ===== */
+.toast-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: content-box;
+  min-width: 320px;
+  max-width: 640px;
+  min-height: 24px;
+  margin-bottom: 8px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* ===== 타입별 스타일 ===== */
+.toast-success {
+  --main-color: #ffffff;
+  --main-background: #55a0ee;
+}
+.toast-error {
+  --main-color: #ffffff;
+  --main-background: #c9162b;
+}
+.toast-default {
+  --main-color: #ffffff;
+  --main-background: #343a40;
+}
+
+/* ===== Variants 스타일 ===== */
+.toast-filled {
+  color: var(--main-color);
+  background: var(--main-background);
+}
+.toast-outlined {
+  color: var(--main-background);
+  background: #fff;
+  border: 1px solid var(--main-background);
+}
+
+/* ===== 닫기 버튼 스타일 ===== */
+.toast-close-button {
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* ===== 아이콘 색상 변경 ===== */
+.toast-close-icon path {
+  fill: var(--main-color);
+}
+.toast-outlined .toast-close-icon path {
+  fill: var(--main-background);
+}
+
+/* ===== 위치 스타일 ===== */
+.toast-wrapper {
+  position: fixed;
+  z-index: 10000;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.toast-wrapper.top {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toast-wrapper.top-left {
+  top: 20px;
+  left: 20px;
+}
+.toast-wrapper.top-right {
+  top: 20px;
+  right: 20px;
+}
+.toast-wrapper.bottom {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toast-wrapper.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+.toast-wrapper.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+/* ===== 애니메이션 적용 ===== */
+.toast-item.top {
+  animation: topAnimation 0.3s forwards;
+}
+.toast-item.top-left,
+.toast-item.bottom-left {
+  animation: leftAnimation 0.3s forwards;
+}
+.toast-item.top-right,
+.toast-item.bottom-right {
+  animation: rightAnimation 0.3s forwards;
+}
+.toast-item.bottom {
+  animation: bottomAnimation 0.3s forwards;
+}

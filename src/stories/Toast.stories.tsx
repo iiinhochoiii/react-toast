@@ -3,40 +3,7 @@ import type { Meta, StoryFn, StoryObj } from '@storybook/react';
 import Toast from '@/components/Toast/Toast';
 import { Position, ToastType } from '@/types/toast';
 import { addToast as onToast } from '@/core/store';
-import { css } from '@emotion/react';
-
-const wrapperStyles = css`
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  & > div {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin: auto;
-    & > div {
-      display: flex;
-      gap: 20px;
-
-      & > button {
-        width: 200px;
-      }
-    }
-  }
-`;
-
-const buttonStyles = css`
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  font-size: 16px;
-  width: 200px;
-  background-color: #edf4ff;
-`;
+import './toast.css';
 
 const meta = {
   title: 'Toast',
@@ -58,8 +25,8 @@ export const Default: StoryObj<ToastType> = {
     };
 
     return (
-      <div css={wrapperStyles}>
-        <button css={buttonStyles} onClick={handleClick}>
+      <div className="toast-story-wrapper">
+        <button className="toast-story-button" onClick={handleClick}>
           Toast
         </button>
         <Toast />
@@ -77,9 +44,9 @@ export const Default: StoryObj<ToastType> = {
 
 export const Types: StoryFn<ToastType> = () => {
   return (
-    <div css={wrapperStyles}>
+    <div className="toast-story-wrapper">
       <button
-        css={buttonStyles}
+        className="toast-story-button"
         onClick={() =>
           onToast({
             message: 'This is a Default Type toast message',
@@ -90,7 +57,7 @@ export const Types: StoryFn<ToastType> = () => {
         Default Toast
       </button>
       <button
-        css={buttonStyles}
+        className="toast-story-button"
         onClick={() =>
           onToast({
             message: 'This is a Success Type toast message',
@@ -101,10 +68,10 @@ export const Types: StoryFn<ToastType> = () => {
         Success Toast
       </button>
       <button
-        css={buttonStyles}
+        className="toast-story-button"
         onClick={() =>
           onToast({
-            message: 'This is a Error Type toast message',
+            message: 'This is an Error Type toast message',
             type: 'error',
           })
         }
@@ -118,9 +85,9 @@ export const Types: StoryFn<ToastType> = () => {
 
 export const Variants: StoryFn<ToastType> = () => {
   return (
-    <div css={wrapperStyles}>
+    <div className="toast-story-wrapper">
       <button
-        css={buttonStyles}
+        className="toast-story-button"
         onClick={() =>
           onToast({
             message: 'This is a Filled Variant toast message',
@@ -131,10 +98,10 @@ export const Variants: StoryFn<ToastType> = () => {
         Filled Toast
       </button>
       <button
-        css={buttonStyles}
+        className="toast-story-button"
         onClick={() =>
           onToast({
-            message: 'This is a Outlined Variant toast message',
+            message: 'This is an Outlined Variant toast message',
             variants: 'outlined',
           })
         }
@@ -148,42 +115,47 @@ export const Variants: StoryFn<ToastType> = () => {
 
 export const Positions: StoryFn<ToastType> = () => {
   const handleClick = (position: Position) => {
-    onToast({
-      message: `This is a ${position} toast message`,
-      position: position,
-    });
+    onToast({ message: `This is a ${position} toast message`, position });
   };
 
   return (
-    <div
-      css={[
-        wrapperStyles,
-        css`
-          height: 40vh;
-        `,
-      ]}
-    >
+    <div className="toast-story-wrapper toast-story-position-wrapper toast-story-positions">
       <div>
         <div>
-          <button css={buttonStyles} onClick={() => handleClick('top-left')}>
+          <button
+            className="toast-story-button"
+            onClick={() => handleClick('top-left')}
+          >
             Top-Left Toast
           </button>
-          <button css={buttonStyles} onClick={() => handleClick('top')}>
+          <button
+            className="toast-story-button"
+            onClick={() => handleClick('top')}
+          >
             Top Toast
           </button>
-          <button css={buttonStyles} onClick={() => handleClick('top-right')}>
+          <button
+            className="toast-story-button"
+            onClick={() => handleClick('top-right')}
+          >
             Top-Right Toast
           </button>
         </div>
         <div>
-          <button css={buttonStyles} onClick={() => handleClick('bottom-left')}>
+          <button
+            className="toast-story-button"
+            onClick={() => handleClick('bottom-left')}
+          >
             Bottom-Left Toast
           </button>
-          <button css={buttonStyles} onClick={() => handleClick('bottom')}>
+          <button
+            className="toast-story-button"
+            onClick={() => handleClick('bottom')}
+          >
             Bottom Toast
           </button>
           <button
-            css={buttonStyles}
+            className="toast-story-button"
             onClick={() => handleClick('bottom-right')}
           >
             Bottom-Right Toast
@@ -198,14 +170,12 @@ export const Positions: StoryFn<ToastType> = () => {
 export const Custom: StoryObj<ToastType> = {
   render: (props) => {
     const handleClick = () => {
-      onToast({
-        ...props,
-      });
+      onToast({ ...props });
     };
 
     return (
-      <div css={wrapperStyles}>
-        <button css={buttonStyles} onClick={handleClick}>
+      <div className="toast-story-wrapper">
+        <button className="toast-story-button" onClick={handleClick}>
           Custom Toast
         </button>
         <Toast />
@@ -220,7 +190,7 @@ export const Custom: StoryObj<ToastType> = {
     custom: () => (
       <div>
         <h1>hello</h1>
-        <p>this is custom toast message</p>
+        <p>this is a custom toast message</p>
       </div>
     ),
   },
