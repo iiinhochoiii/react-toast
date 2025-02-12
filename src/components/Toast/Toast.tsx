@@ -1,8 +1,11 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Position, ToastType } from '../../types/toast';
 import { useToastState } from '../../core/store';
+
+import { Wrapper } from './Toast.styles';
+
 import ToastContent from './ToastContent';
-import './toast.css';
 
 const Toast = () => {
   const toasts = useToastState();
@@ -20,7 +23,7 @@ const Toast = () => {
     <>
       {(Object.keys(groupByToast) as Array<keyof typeof groupByToast>).map(
         (key) => (
-          <div key={key} className={`toast-wrapper ${key}`}>
+          <Wrapper key={key} position={key}>
             {groupByToast[key].map(
               ({
                 id,
@@ -31,21 +34,20 @@ const Toast = () => {
                 variants = 'filled',
                 position = 'bottom',
                 ...rest
-              }: ToastType) => (
-                <ToastContent
-                  key={id}
-                  id={id}
-                  message={message}
-                  type={type}
-                  isClosable={isClosable}
-                  duration={duration}
-                  variants={variants}
-                  position={position}
-                  {...rest}
-                />
-              )
+              }: ToastType) =>
+                React.cloneElement((<ToastContent />) as React.ReactElement, {
+                  id,
+                  message,
+                  type,
+                  isClosable,
+                  duration,
+                  variants,
+                  position,
+                  key: id,
+                  ...rest,
+                })
             )}
-          </div>
+          </Wrapper>
         )
       )}
     </>,
