@@ -93,6 +93,16 @@ export const Types: StoryFn<ToastType> = () => {
       <Button
         onClick={() =>
           onToast({
+            message: 'This is a Warn Type toast message',
+            type: 'warn',
+          })
+        }
+      >
+        Warn Toast
+      </Button>
+      <Button
+        onClick={() =>
+          onToast({
             message: 'This is a Success Type toast message',
             type: 'success',
           })

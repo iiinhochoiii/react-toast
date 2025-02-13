@@ -56,6 +56,10 @@ const toastStyle = {
       --main-color: #ffffff;
       --main-background: #55a0ee;
     `,
+    warn: css`
+      --main-color: #ffffff;
+      --main-background: #f1ad0f;
+    `,
     error: css`
       --main-color: #ffffff;
       --main-background: #c9162b;
