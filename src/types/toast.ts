@@ -1,7 +1,7 @@
 export interface ToastType {
   id?: string;
   message?: string;
-  type?: 'success' | 'error' | 'default';
+  type?: 'success' | 'error' | 'warn' | 'default';
   duration?: number;
   isClosable?: boolean;
   variants?: 'filled' | 'outlined';

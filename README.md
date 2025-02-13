@@ -55,7 +55,7 @@ The props of the `onToast` function, which is the event used when generating a t
 | props       | type                                                                                          | default       | description
 |-------------|-----------------------------------------------------------------------------------------------|---------------|-----------------------------------------------------------|
 | message     | string                                                                                        |               | displayed message                                         |
-| type        | `success` \| `error` \| `default`                                                             | `default`     | Colors by toast type                                      |
+| type        | `success` \| `warn` \| `error` \| `default`                                                   | `default`     | Colors by toast type                                      |
 | duration    | number                                                                                        | 3000          | Toast Duration (ms)                                       |
 | position    | `top` \| `top-right` \| `top-left` \| `bottom` \| `bottom-right` \| `bottom-left` | `bottom`  | `bottom`      | Toast display position                                    |
 | isClosable  | boolean                                                                                       | `true`        | Whether to display the close button                       |
