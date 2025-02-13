@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { ToastType } from '../../types/toast';
 
-import { removeToast } from '../../core/store';
+import { removeToast } from '../../store/action';
 import {
   StyledToastItem,
   StyledModalCloseIcon,

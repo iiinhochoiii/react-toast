@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Position, ToastType } from '../../types/toast';
-import { useToastState } from '../../core/store';
+import { useToastState } from '../../store/toastStore';
 
 import { Wrapper } from './Toast.styles';
 
